@@ -3,7 +3,17 @@ import SwiftData
 
 struct ContentView: View {
     var body: some View {
-        EntryView()
+        TabView {
+            EntryView()
+                .tabItem {
+                    Label("記録", systemImage: "square.and.pencil")
+                }
+
+            HistoryView()
+                .tabItem {
+                    Label("履歴", systemImage: "chart.line.uptrend.xyaxis")
+                }
+        }
     }
 }
 

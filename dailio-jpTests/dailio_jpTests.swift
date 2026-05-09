@@ -149,3 +149,82 @@ struct SleepAggregatorTests {
         #expect(SleepAggregator().totalSleepHours(segments: segments, in: range) == 7.0)
     }
 }
+
+@MainActor
+struct MovingAverageTests {
+
+    @Test func returnsEmptyForEmptyInput() {
+        #expect(MovingAverage().calculate(values: [], window: 7) == [])
+    }
+
+    @Test func partialWindowAtStart() {
+        // window 3, values [3, 6, 9]
+        // i=0: avg(3) = 3
+        // i=1: avg(3,6) = 4.5
+        // i=2: avg(3,6,9) = 6
+        let result = MovingAverage().calculate(values: [3, 6, 9], window: 3)
+        #expect(result == [3.0, 4.5, 6.0])
+    }
+
+    @Test func fullWindowSlides() {
+        // window 3, values [1, 2, 3, 4, 5]
+        // 1, (1+2)/2=1.5, (1+2+3)/3=2, (2+3+4)/3=3, (3+4+5)/3=4
+        let result = MovingAverage().calculate(values: [1, 2, 3, 4, 5], window: 3)
+        #expect(result == [1.0, 1.5, 2.0, 3.0, 4.0])
+    }
+
+    @Test func constantValuesGiveSameAverage() {
+        let result = MovingAverage().calculate(values: [5, 5, 5, 5, 5, 5, 5, 5], window: 7)
+        #expect(result.allSatisfy { $0 == 5.0 })
+    }
+}
+
+@MainActor
+struct WeekdayMoodAggregatorTests {
+
+    private let calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.timeZone = TimeZone(identifier: "Asia/Tokyo")!
+        return cal
+    }()
+
+    private func date(_ y: Int, _ m: Int, _ d: Int) -> Date {
+        calendar.date(from: DateComponents(year: y, month: m, day: d, hour: 12))!
+    }
+
+    @Test func returnsEmptyForNoEntries() {
+        let aggregator = WeekdayMoodAggregator(calendar: calendar)
+        #expect(aggregator.averagesByWeekday(entries: []).isEmpty)
+        #expect(aggregator.bestWeekday(entries: []) == nil)
+        #expect(aggregator.worstWeekday(entries: []) == nil)
+    }
+
+    @Test func averagesPerWeekday() {
+        // 2026-05-04 (Mon) mood 8, 2026-05-11 (Mon) mood 6 → Mon avg 7
+        // 2026-05-05 (Tue) mood 4 → Tue avg 4
+        let entries = [
+            MoodEntry(date: date(2026, 5, 4), mood: 8),
+            MoodEntry(date: date(2026, 5, 11), mood: 6),
+            MoodEntry(date: date(2026, 5, 5), mood: 4)
+        ]
+        let aggregator = WeekdayMoodAggregator(calendar: calendar)
+        let averages = aggregator.averagesByWeekday(entries: entries)
+
+        let monday = averages.first { $0.weekday == 2 }
+        let tuesday = averages.first { $0.weekday == 3 }
+        #expect(monday?.average == 7.0)
+        #expect(monday?.sampleCount == 2)
+        #expect(tuesday?.average == 4.0)
+    }
+
+    @Test func bestAndWorstWeekday() {
+        let entries = [
+            MoodEntry(date: date(2026, 5, 4), mood: 9),  // Mon
+            MoodEntry(date: date(2026, 5, 5), mood: 2),  // Tue
+            MoodEntry(date: date(2026, 5, 6), mood: 5)   // Wed
+        ]
+        let aggregator = WeekdayMoodAggregator(calendar: calendar)
+        #expect(aggregator.bestWeekday(entries: entries)?.weekday == 2)   // Mon
+        #expect(aggregator.worstWeekday(entries: entries)?.weekday == 3)  // Tue
+    }
+}

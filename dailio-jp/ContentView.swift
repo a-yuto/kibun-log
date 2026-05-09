@@ -2,18 +2,41 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @State private var selectedTab: Tab = .entry
+
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             EntryView()
                 .tabItem {
                     Label("記録", systemImage: "square.and.pencil")
                 }
+                .tag(Tab.entry)
 
             HistoryView()
                 .tabItem {
                     Label("履歴", systemImage: "chart.line.uptrend.xyaxis")
                 }
+                .tag(Tab.history)
+
+            SettingsView()
+                .tabItem {
+                    Label("設定", systemImage: "gearshape")
+                }
+                .tag(Tab.settings)
         }
+        .onReceive(NotificationCenter.default.publisher(for: NotificationDelegate.openDestinationNotification)) { notification in
+            guard let destination = notification.object as? NotificationDelegate.Destination else { return }
+            switch destination {
+            case .entry:
+                selectedTab = .entry
+            }
+        }
+    }
+
+    enum Tab: Hashable {
+        case entry
+        case history
+        case settings
     }
 }
 

@@ -3,6 +3,8 @@ import SwiftData
 
 @main
 struct dailio_jpApp: App {
+    @UIApplicationDelegateAdaptor(NotificationDelegate.self) private var notificationDelegate
+
     let sharedModelContainer: ModelContainer = {
         let schema = Schema([
             MoodEntry.self,

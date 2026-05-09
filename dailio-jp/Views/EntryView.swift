@@ -60,6 +60,8 @@ struct EntryView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 14))
                     }
                     .disabled(saveConfirmation == .saving)
+
+                    BannerSlot()
                 }
                 .padding()
             }

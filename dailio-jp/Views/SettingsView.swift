@@ -1,8 +1,10 @@
 import SwiftUI
 import UserNotifications
 
-/// 設定画面: リマインダー時刻 / ON-OFF / 通知許可。
+/// 設定画面: リマインダー時刻 / ON-OFF / 通知許可 / Pro。
 struct SettingsView: View {
+    @Environment(EntitlementStore.self) private var entitlementStore
+
     @AppStorage(ReminderSettingsKey.isEnabled)
     private var isReminderEnabled: Bool = ReminderSettingsDefaults.isEnabled
 
@@ -13,6 +15,7 @@ struct SettingsView: View {
     private var reminderMinute: Int = ReminderSettingsDefaults.minute
 
     @State private var authorizationStatus: UNAuthorizationStatus = .notDetermined
+    @State private var isPaywallPresented: Bool = false
 
     private let scheduler = NotificationScheduler()
 
@@ -37,6 +40,8 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                proSection
+
                 Section {
                     Toggle("毎日のリマインダー", isOn: $isReminderEnabled)
 
@@ -80,6 +85,36 @@ struct SettingsView: View {
             .onChange(of: reminderMinute) { _, _ in
                 Task { await applyReminder() }
             }
+            .sheet(isPresented: $isPaywallPresented) {
+                PurchaseView()
+            }
+        }
+    }
+
+    // MARK: - Pro section
+
+    @ViewBuilder
+    private var proSection: some View {
+        Section("Pro") {
+            if entitlementStore.isPro {
+                Label("Pro 加入中", systemImage: "checkmark.seal.fill")
+                    .foregroundStyle(.green)
+            } else {
+                Button {
+                    isPaywallPresented = true
+                } label: {
+                    HStack {
+                        Image(systemName: "sparkles")
+                            .foregroundStyle(.tint)
+                        Text("Pro にアップグレード")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(.secondary)
+                            .font(.caption.bold())
+                    }
+                }
+                .buttonStyle(.plain)
+            }
         }
     }
 
@@ -120,4 +155,5 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .environment(EntitlementStore())
 }

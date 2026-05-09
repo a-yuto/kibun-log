@@ -1,0 +1,116 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "ja_JP",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "57BD2A22",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "4980",
+      "familyShareable" : false,
+      "internalID" : "lifetime0001",
+      "localizations" : [
+        {
+          "description" : "買い切りで全機能を解放",
+          "displayName" : "Pro Lifetime",
+          "locale" : "ja_JP"
+        },
+        {
+          "description" : "Unlock all features forever",
+          "displayName" : "Pro Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "niki.dailio-jp.pro.lifetime",
+      "referenceName" : "Pro Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_compatibilityTimeRate" : 1,
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21539831",
+      "localizations" : [],
+      "name" : "Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "200",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "monthly0001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "月額 ¥200 で広告除去とすべての Pro 機能",
+              "displayName" : "Pro 月額",
+              "locale" : "ja_JP"
+            },
+            {
+              "description" : "Monthly Pro for ¥200/month",
+              "displayName" : "Pro Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "niki.dailio-jp.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Pro Monthly",
+          "subscriptionGroupID" : "21539831",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "1980",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "yearly0001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "年額 ¥1,980 で広告除去とすべての Pro 機能（月額 17.5%引き）",
+              "displayName" : "Pro 年額",
+              "locale" : "ja_JP"
+            },
+            {
+              "description" : "Yearly Pro for ¥1,980/year",
+              "displayName" : "Pro Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "niki.dailio-jp.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Pro Yearly",
+          "subscriptionGroupID" : "21539831",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

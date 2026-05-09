@@ -18,11 +18,16 @@ struct dailio_jpApp: App {
     }()
 
     private let sleepProvider: any SleepProvider = HealthKitSleepProvider()
+    @State private var entitlementStore = EntitlementStore()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.sleepProvider, sleepProvider)
+                .environment(entitlementStore)
+                .task {
+                    await entitlementStore.refresh()
+                }
         }
         .modelContainer(sharedModelContainer)
     }

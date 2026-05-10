@@ -24,12 +24,14 @@ struct NotificationScheduler {
     }
 
     /// 毎日指定時刻にリマインダーをスケジュールする（既存の同 ID を置き換え）。
+    /// 文言は SeasonalReminderPresets で季節に応じたものを採用。
     func scheduleDailyReminder(at time: DateComponents) async throws {
         cancelDailyReminder()
 
+        let presets = SeasonalReminderPresets()
         let content = UNMutableNotificationContent()
-        content.title = String(localized: "今日の気分を記録しましょう")
-        content.body = String(localized: "気分と昨夜の睡眠を 30 秒で記録できます")
+        content.title = presets.title()
+        content.body = presets.body()
         content.sound = .default
         content.userInfo = ["destination": "entry"]
 

@@ -109,31 +109,38 @@ private struct MoodChart: View {
     }
 
     var body: some View {
+        let rawLabel = String(localized: "実データ")
+        let avgLabel = String(localized: "7日移動平均")
+
         Chart {
             ForEach(Array(entries.enumerated()), id: \.element.persistentModelID) { index, entry in
                 LineMark(
                     x: .value("日付", entry.date),
-                    y: .value("気分", entry.mood)
+                    y: .value("気分", entry.mood),
+                    series: .value("series", rawLabel)
                 )
-                .foregroundStyle(by: .value("series", "raw"))
-                .opacity(showMovingAverage ? 0.3 : 1.0)
+                .foregroundStyle(by: .value("series", rawLabel))
+                .lineStyle(StrokeStyle(lineWidth: 1.5, dash: showMovingAverage ? [3, 3] : []))
+                .opacity(showMovingAverage ? 0.5 : 1.0)
 
                 if showMovingAverage, movingAverage.indices.contains(index) {
                     LineMark(
                         x: .value("日付", entry.date),
-                        y: .value("移動平均", movingAverage[index])
+                        y: .value("気分", movingAverage[index]),
+                        series: .value("series", avgLabel)
                     )
-                    .foregroundStyle(by: .value("series", "movingAverage"))
+                    .foregroundStyle(by: .value("series", avgLabel))
                     .lineStyle(StrokeStyle(lineWidth: 2.5))
                 }
             }
         }
         .chartYScale(domain: 0...10)
         .chartForegroundStyleScale([
-            "raw": Color.accentColor,
-            "movingAverage": Color.orange
+            rawLabel: Color.accentColor,
+            avgLabel: Color.orange
         ])
-        .chartLegend(.hidden)
+        .chartLegend(showMovingAverage ? .visible : .hidden)
+        .chartLegend(position: .bottom, alignment: .leading, spacing: 8)
     }
 }
 
@@ -153,22 +160,28 @@ private struct SleepChart: View {
     }
 
     var body: some View {
+        let rawLabel = String(localized: "実データ")
+        let avgLabel = String(localized: "7日移動平均")
+
         Chart {
             ForEach(Array(entriesWithSleep.enumerated()), id: \.element.persistentModelID) { index, entry in
                 if let hours = entry.sleepHours {
                     LineMark(
                         x: .value("日付", entry.date),
-                        y: .value("睡眠時間", hours)
+                        y: .value("睡眠時間", hours),
+                        series: .value("series", rawLabel)
                     )
-                    .foregroundStyle(by: .value("series", "raw"))
-                    .opacity(showMovingAverage ? 0.3 : 1.0)
+                    .foregroundStyle(by: .value("series", rawLabel))
+                    .lineStyle(StrokeStyle(lineWidth: 1.5, dash: showMovingAverage ? [3, 3] : []))
+                    .opacity(showMovingAverage ? 0.5 : 1.0)
 
                     if showMovingAverage, movingAverage.indices.contains(index) {
                         LineMark(
                             x: .value("日付", entry.date),
-                            y: .value("移動平均", movingAverage[index])
+                            y: .value("睡眠時間", movingAverage[index]),
+                            series: .value("series", avgLabel)
                         )
-                        .foregroundStyle(by: .value("series", "movingAverage"))
+                        .foregroundStyle(by: .value("series", avgLabel))
                         .lineStyle(StrokeStyle(lineWidth: 2.5))
                     }
                 }
@@ -176,10 +189,11 @@ private struct SleepChart: View {
         }
         .chartYScale(domain: 0...12)
         .chartForegroundStyleScale([
-            "raw": Color.blue,
-            "movingAverage": Color.orange
+            rawLabel: Color.blue,
+            avgLabel: Color.orange
         ])
-        .chartLegend(.hidden)
+        .chartLegend(showMovingAverage ? .visible : .hidden)
+        .chartLegend(position: .bottom, alignment: .leading, spacing: 8)
     }
 }
 

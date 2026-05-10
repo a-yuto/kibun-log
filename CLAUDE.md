@@ -8,8 +8,20 @@ Daylio対抗の超シンプル気分×睡眠トラッカー（iOS）。記録項
 
 - `dailio-jp.xcodeproj` — Xcode プロジェクト（PBXFileSystemSynchronizedRootGroup 方式 = ファイル追加で `project.pbxproj` の手編集は不要）
 - `dailio-jp/` — アプリ本体ソース（`dailio_jpApp.swift` がエントリポイント）
+  - `Models/` — `MoodEntry`（@Model）、`SleepSource`、`LogicalDay`、`StreakCalculator`
+  - `Repositories/` — `MoodRepository`（同一論理日 upsert）
+  - `HealthKit/` — `SleepSegment`、`SleepAggregator`（純関数）、`SleepProvider` プロトコル + `HealthKitSleepProvider`
+  - `Charts/` — `ChartPeriod`、`MovingAverage`、`WeekdayMoodAggregator`
+  - `Notifications/` — `NotificationScheduler`、`NotificationDelegate`、`SeasonalReminderPresets`
+  - `StoreKit/` — `ProductIDs`、`EntitlementStore`（@Observable）、`Configuration.storekit`
+  - `LocalAuth/` — `AuthService`（LAContext ラッパー）、`LockController`
+  - `Onboarding/` — `OnboardingFlags`、`OnboardingView`、`OnboardingSteps`
+  - `Settings/` — `ReminderSettings` / `LockSettingsKey`（AppStorage キー集約）
+  - `Ads/` — `BannerSlot`（プレースホルダー、AdMob SDK 統合は別フェーズ）
+  - `Views/` — UI レイヤ（`EntryView`、`HistoryView`、`SettingsView`、`PurchaseView`、`LockedView` 等）
 - `dailio-jpTests/` — ユニットテスト（Swift Testing。`@Test` を使う、XCTest ではない）
 - `dailio-jpUITests/` — UI テスト（XCTest）
+- `docs/` — `PRIVACY.md` / `TERMS.md` / `STORE_LISTING.md` / `RELEASE_CHECKLIST.md`
 
 ### ビルド設定（`project.pbxproj` より）
 
@@ -38,14 +50,20 @@ Daylio対抗の超シンプル気分×睡眠トラッカー（iOS）。記録項
 ## ビルド・テスト
 
 ```bash
-# ビルド（iPhone 15 シミュレータ）
+# ビルド（iPhone 17 シミュレータ — iOS 26.4 SDK で利用可能なファミリ）
+DEVELOPER_DIR=/Applications/Xcode-26.4.1.app/Contents/Developer \
 xcodebuild -project dailio-jp.xcodeproj -scheme dailio-jp \
-  -destination 'platform=iOS Simulator,name=iPhone 17' build
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
+  -configuration Debug CODE_SIGNING_ALLOWED=NO build
 
 # ユニットテスト
+DEVELOPER_DIR=/Applications/Xcode-26.4.1.app/Contents/Developer \
 xcodebuild -project dailio-jp.xcodeproj -scheme dailio-jp \
-  -destination 'platform=iOS Simulator,name=iPhone 17' test
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
+  -configuration Debug CODE_SIGNING_ALLOWED=NO test
 ```
+
+`DEVELOPER_DIR` を設定するのは Command Line Tools と Xcode が共存する環境でフルの Xcode を強制するため。
 
 ファイル追加は Xcode の同期グループ機能により自動認識される。`project.pbxproj` の編集は基本的に不要。
 
@@ -109,4 +127,7 @@ issue 末尾「未決事項」はユーザー確認済み。
 
 ## リリース計画
 
-実装フェーズの全体像は `IMPLEMENTATION_PLAN.md` を参照。
+- 実装フェーズの全体像と進捗: `IMPLEMENTATION_PLAN.md`
+- 手作業（Apple Developer / App Store Connect / TestFlight 等）: `docs/RELEASE_CHECKLIST.md`
+- App Store 申請文言: `docs/STORE_LISTING.md`
+- プライバシーポリシー / 利用規約: `docs/PRIVACY.md`、`docs/TERMS.md`

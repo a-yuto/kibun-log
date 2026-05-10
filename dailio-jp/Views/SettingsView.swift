@@ -1,9 +1,11 @@
 import SwiftUI
+import SwiftData
 import UserNotifications
 
 /// 設定画面: リマインダー時刻 / ON-OFF / 通知許可 / Pro。
 struct SettingsView: View {
     @Environment(EntitlementStore.self) private var entitlementStore
+    @Environment(\.modelContext) private var modelContext
 
     @AppStorage(ReminderSettingsKey.isEnabled)
     private var isReminderEnabled: Bool = ReminderSettingsDefaults.isEnabled
@@ -19,6 +21,7 @@ struct SettingsView: View {
 
     @State private var authorizationStatus: UNAuthorizationStatus = .notDetermined
     @State private var isPaywallPresented: Bool = false
+    @State private var debugMessage: String?
 
     private let scheduler = NotificationScheduler()
     private let auth = AuthService()
@@ -105,6 +108,10 @@ struct SettingsView: View {
                 Section("このアプリについて") {
                     LabeledContent("バージョン", value: appVersion)
                 }
+
+                #if DEBUG
+                debugSection
+                #endif
             }
             .navigationTitle("設定")
             .task {
@@ -151,6 +158,51 @@ struct SettingsView: View {
             }
         }
     }
+
+    // MARK: - Debug
+
+    #if DEBUG
+    @ViewBuilder
+    private var debugSection: some View {
+        Section("Debug") {
+            Button {
+                runSeed(days: 60)
+            } label: {
+                Label("ダミーデータを生成 (60 日)", systemImage: "wand.and.stars")
+            }
+
+            Button(role: .destructive) {
+                runClear()
+            } label: {
+                Label("全データを削除", systemImage: "trash")
+            }
+
+            if let debugMessage {
+                Text(debugMessage)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func runSeed(days: Int) {
+        do {
+            let count = try DummyDataSeeder().seed(context: modelContext, days: days)
+            debugMessage = "\(count) 件のダミーデータを投入しました"
+        } catch {
+            debugMessage = "失敗: \(error.localizedDescription)"
+        }
+    }
+
+    private func runClear() {
+        do {
+            try DummyDataSeeder().clear(context: modelContext)
+            debugMessage = "全データを削除しました"
+        } catch {
+            debugMessage = "失敗: \(error.localizedDescription)"
+        }
+    }
+    #endif
 
     // MARK: - Helpers
 

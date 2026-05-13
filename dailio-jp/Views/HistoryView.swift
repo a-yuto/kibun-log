@@ -37,6 +37,7 @@ struct HistoryView: View {
                         moodChartSection
                         sleepChartSection
                         MonthlySummaryView(entries: filteredEntries)
+                        NoteHistorySection(entries: filteredEntries)
                     }
                 }
                 .padding()
@@ -194,6 +195,57 @@ private struct SleepChart: View {
         ])
         .chartLegend(showMovingAverage ? .visible : .hidden)
         .chartLegend(position: .bottom, alignment: .leading, spacing: 8)
+    }
+}
+
+// MARK: - Note History Section
+
+/// 期間内の「ひとこと」を日付降順で並べたリスト。空の note は表示しない。
+private struct NoteHistorySection: View {
+    let entries: [MoodEntry]
+
+    private var noted: [MoodEntry] {
+        entries
+            .filter { !$0.note.isEmpty }
+            .sorted { $0.date > $1.date }
+    }
+
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "ja_JP")
+        f.setLocalizedDateFormatFromTemplate("Md(E)")
+        return f
+    }()
+
+    var body: some View {
+        if noted.isEmpty {
+            EmptyView()
+        } else {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("ひとこと履歴")
+                    .font(.headline)
+
+                ForEach(noted, id: \.persistentModelID) { entry in
+                    HStack(alignment: .top, spacing: 12) {
+                        Text(Self.dateFormatter.string(from: entry.date))
+                            .font(.caption.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                            .frame(width: 56, alignment: .leading)
+                        Text(entry.note)
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    if entry.persistentModelID != noted.last?.persistentModelID {
+                        Divider()
+                    }
+                }
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.secondarySystemBackground))
+            )
+        }
     }
 }
 

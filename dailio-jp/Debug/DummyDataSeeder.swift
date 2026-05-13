@@ -38,17 +38,41 @@ struct DummyDataSeeder {
             // 半分くらいは HealthKit 由来のソースに見せる
             let source: SleepSource = Bool.random(using: &generator) ? .healthKit : .manual
 
+            // ノートはおおよそ半分の日に付与
+            let note = Bool.random(using: &generator)
+                ? Self.sampleNotes.randomElement(using: &generator) ?? ""
+                : ""
+
             let entry = MoodEntry(
                 date: noon(of: date, calendar: calendar),
                 mood: mood,
                 sleepHours: sleepHours,
-                sleepSource: source
+                sleepSource: source,
+                note: note
             )
             context.insert(entry)
         }
         try context.save()
         return days
     }
+
+    private static let sampleNotes: [String] = [
+        "散歩で気分転換できた",
+        "会議が長くて疲れた",
+        "よく寝たせいか調子が良い",
+        "雨で気分が沈みがち",
+        "美味しいランチで元気回復",
+        "夜更かしして眠い",
+        "久しぶりに友人と話せた",
+        "締切に追われて余裕なし",
+        "なんとなくだるい日",
+        "コーヒー飲み過ぎたかも",
+        "新しい本を読み始めた",
+        "ストレッチが気持ちよかった",
+        "週末が待ち遠しい",
+        "朝活が続いていて気分良し",
+        "夕食が重くて胃もたれ"
+    ]
 
     /// 既存の `MoodEntry` を全削除する。
     func clear(context: ModelContext) throws {

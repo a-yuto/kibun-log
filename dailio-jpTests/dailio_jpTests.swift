@@ -58,6 +58,40 @@ struct MoodRepositoryTests {
         let entries = try context.fetch(FetchDescriptor<MoodEntry>())
         #expect(entries.count == 2)
     }
+
+    @Test func upsertStoresNote() throws {
+        let context = try makeContext()
+        let repository = MoodRepository(context: context)
+
+        try repository.upsert(
+            on: .now,
+            mood: 6,
+            sleepHours: 7,
+            sleepSource: .manual,
+            note: "今日は散歩した"
+        )
+        try context.save()
+
+        let entries = try context.fetch(FetchDescriptor<MoodEntry>())
+        #expect(entries.first?.note == "今日は散歩した")
+    }
+
+    @Test func upsertOverwritesNoteOnSameLogicalDay() throws {
+        let context = try makeContext()
+        let repository = MoodRepository(context: context)
+
+        let calendar = Calendar.current
+        let baseDay = calendar.date(from: DateComponents(year: 2026, month: 5, day: 10, hour: 9))!
+        let laterSameDay = calendar.date(from: DateComponents(year: 2026, month: 5, day: 10, hour: 22))!
+
+        try repository.upsert(on: baseDay, mood: 5, sleepHours: 7, sleepSource: .manual, note: "朝の気分メモ")
+        try repository.upsert(on: laterSameDay, mood: 7, sleepHours: 7, sleepSource: .manual, note: "夜更新したメモ")
+        try context.save()
+
+        let entries = try context.fetch(FetchDescriptor<MoodEntry>())
+        #expect(entries.count == 1)
+        #expect(entries.first?.note == "夜更新したメモ")
+    }
 }
 
 @MainActor

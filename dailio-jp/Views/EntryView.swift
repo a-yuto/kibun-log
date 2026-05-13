@@ -10,11 +10,14 @@ struct EntryView: View {
     @State private var mood: Double = 5
     @State private var sleepHours: Double? = 7.0
     @State private var sleepSource: SleepSource = .manual
+    @State private var note: String = ""
     @State private var saveConfirmation: ConfirmationState = .idle
 
     /// HealthKit prefill 直後の値。これと sleepHours が一致する間は source = .healthKit。
     /// ユーザーが Stepper を動かして値が変わったら source を .manual に切り替える。
     @State private var lastAutoSleepHours: Double? = nil
+
+    private static let noteMaxLength = 100
 
     private var streak: Int {
         StreakCalculator().currentStreak(entries: allEntries)
@@ -50,6 +53,8 @@ struct EntryView: View {
                                 .fill(Color(.secondarySystemBackground))
                         )
 
+                    noteCard
+
                     Button(action: save) {
                         Text(saveConfirmation == .saved ? "保存しました" : "今日の記録を保存")
                             .font(.headline)
@@ -78,6 +83,39 @@ struct EntryView: View {
         }
     }
 
+    // MARK: - Note Card
+
+    private var noteCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("今日のひとこと")
+                    .font(.headline)
+                Spacer()
+                Text("\(note.count) / \(Self.noteMaxLength)")
+                    .font(.caption.monospacedDigit())
+                    .foregroundStyle(note.count >= Self.noteMaxLength ? .orange : .secondary)
+            }
+
+            TextField(
+                "今日の気持ちを一言で（任意）",
+                text: $note,
+                axis: .horizontal
+            )
+            .textFieldStyle(.plain)
+            .submitLabel(.done)
+            .onChange(of: note) { _, newValue in
+                if newValue.count > Self.noteMaxLength {
+                    note = String(newValue.prefix(Self.noteMaxLength))
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(.secondarySystemBackground))
+        )
+    }
+
     // MARK: - Actions
 
     private func loadTodayIfExists() {
@@ -88,6 +126,7 @@ struct EntryView: View {
         mood = today.mood
         sleepHours = today.sleepHours
         sleepSource = today.sleepSource
+        note = today.note
         lastAutoSleepHours = today.sleepSource == .healthKit ? today.sleepHours : nil
     }
 
@@ -119,7 +158,8 @@ struct EntryView: View {
                 on: .now,
                 mood: mood,
                 sleepHours: sleepHours,
-                sleepSource: sleepSource
+                sleepSource: sleepSource,
+                note: note
             )
             try modelContext.save()
             saveConfirmation = .saved

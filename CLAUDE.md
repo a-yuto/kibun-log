@@ -86,6 +86,7 @@ xcodebuild -project dailio-jp.xcodeproj -scheme dailio-jp \
     var mood: Double         // 0〜10、連続値、表示は整数丸め
     var sleepHours: Double?  // 直前の夜の睡眠時間（HealthKit or 手動）
     var sleepSource: SleepSource  // .healthKit / .manual
+    var note: String         // 一日一言の日記、最大 100 文字、空文字 = 未入力
     var createdAt: Date
 }
 ```

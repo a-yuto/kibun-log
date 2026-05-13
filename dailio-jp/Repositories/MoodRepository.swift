@@ -13,6 +13,7 @@ struct MoodRepository {
         mood: Double,
         sleepHours: Double?,
         sleepSource: SleepSource,
+        note: String = "",
         calendar: Calendar = .current
     ) throws -> MoodEntry {
         let day = LogicalDay(of: date, calendar: calendar)
@@ -30,6 +31,7 @@ struct MoodRepository {
             existing.mood = mood
             existing.sleepHours = sleepHours
             existing.sleepSource = sleepSource
+            existing.note = note
             existing.updatedAt = .now
             return existing
         }
@@ -38,7 +40,8 @@ struct MoodRepository {
             date: canonical,
             mood: mood,
             sleepHours: sleepHours,
-            sleepSource: sleepSource
+            sleepSource: sleepSource,
+            note: note
         )
         context.insert(new)
         return new

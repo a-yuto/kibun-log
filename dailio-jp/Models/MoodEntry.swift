@@ -11,6 +11,8 @@ final class MoodEntry {
     /// 前夜の睡眠時間（時間単位）
     var sleepHours: Double?
     var sleepSource: SleepSource = SleepSource.manual
+    /// 一日一言の日記（最大 100 文字、空文字 = 未入力）
+    var note: String = ""
     var createdAt: Date = Date.now
     var updatedAt: Date = Date.now
 
@@ -19,6 +21,7 @@ final class MoodEntry {
         mood: Double,
         sleepHours: Double? = nil,
         sleepSource: SleepSource = .manual,
+        note: String = "",
         createdAt: Date = .now,
         updatedAt: Date = .now
     ) {
@@ -26,6 +29,7 @@ final class MoodEntry {
         self.mood = mood
         self.sleepHours = sleepHours
         self.sleepSource = sleepSource
+        self.note = note
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }

@@ -4,9 +4,9 @@
 
 ## 概要 / Summary
 
-dailio（以下「本アプリ」）は、ユーザーの気分と睡眠データを記録するためのツールです。本アプリは**メンタルヘルスに関わるデータの取り扱いに最大限の配慮**を行い、第三者へのデータ送信を一切行いません。
+きぶんログ（以下「本アプリ」）は、ユーザーの気分と睡眠データを記録するためのツールです。本アプリは**メンタルヘルスに関わるデータの取り扱いに最大限の配慮**を行い、第三者へのデータ送信を一切行いません。
 
-dailio (the "App") is a tool for recording mood and sleep data. Because this is mental health data, we treat it with extra care and **never transmit your records to any third party**.
+Kibun Log (the "App") is a tool for recording mood and sleep data. Because this is mental health data, we treat it with extra care and **never transmit your records to any third party**.
 
 ---
 
@@ -32,9 +32,9 @@ dailio (the "App") is a tool for recording mood and sleep data. Because this is 
 
 ## クラウド同期 / Cloud Sync
 
-記録は Apple の iCloud（あなた専用の Container `iCloud.niki.kibun-log`）に同期されます。Apple のプライバシーポリシーに従い、Apple や本アプリ開発者を含む第三者は内容を閲覧できません。同期を停止するには iOS 設定 > Apple ID > iCloud から dailio をオフにしてください。
+記録は Apple の iCloud（あなた専用の Container `iCloud.niki.kibun-log`）に同期されます。Apple のプライバシーポリシーに従い、Apple や本アプリ開発者を含む第三者は内容を閲覧できません。同期を停止するには iOS 設定 > Apple ID > iCloud から きぶんログ をオフにしてください。
 
-Records sync to your private iCloud container (`iCloud.niki.kibun-log`). Per Apple's privacy policy, no one—including Apple or the developer—can read the contents. To stop syncing, disable dailio in iOS Settings > Apple ID > iCloud.
+Records sync to your private iCloud container (`iCloud.niki.kibun-log`). Per Apple's privacy policy, no one—including Apple or the developer—can read the contents. To stop syncing, disable Kibun Log in iOS Settings > Apple ID > iCloud.
 
 ## HealthKit
 
@@ -64,16 +64,16 @@ For AdMob's data practices, see Google's privacy policy: https://policies.google
 
 ## ユーザーの権利 / Your Rights
 
-- 全データの削除: iOS 設定 > 一般 > iPhone ストレージ > dailio > App を削除
-- iCloud 上のデータ削除: iOS 設定 > Apple ID > iCloud > データの管理 > dailio
+- 全データの削除: iOS 設定 > 一般 > iPhone ストレージ > きぶんログ > App を削除
+- iCloud 上のデータ削除: iOS 設定 > Apple ID > iCloud > データの管理 > きぶんログ
 - 課金の取消: iOS 設定 > Apple ID > サブスクリプション
 
-- Delete all data: iOS Settings > General > iPhone Storage > dailio > Delete App
-- Delete iCloud data: iOS Settings > Apple ID > iCloud > Manage Account Storage > dailio
+- Delete all data: iOS Settings > General > iPhone Storage > Kibun Log > Delete App
+- Delete iCloud data: iOS Settings > Apple ID > iCloud > Manage Account Storage > Kibun Log
 - Cancel subscription: iOS Settings > Apple ID > Subscriptions
 
 ## お問い合わせ / Contact
 
-本ポリシーに関するお問い合わせは GitHub Issues までお願いします: https://github.com/a-yuto/dailio-jp
+本ポリシーに関するお問い合わせは GitHub Issues までお願いします: https://github.com/a-yuto/kibun-log
 
-For questions about this policy, please file an issue at https://github.com/a-yuto/dailio-jp.
+For questions about this policy, please file an issue at https://github.com/a-yuto/kibun-log.

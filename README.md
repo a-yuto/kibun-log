@@ -1,1 +1,1 @@
-# dailio-jp
+# きぶんログ（kibun-log）

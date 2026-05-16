@@ -4,9 +4,9 @@
 
 ## 1. 適用 / Acceptance
 
-本規約は、dailio（以下「本アプリ」）の利用に関する条件を定めるものです。本アプリをインストール・利用することにより、本規約に同意したものとみなされます。
+本規約は、きぶんログ（以下「本アプリ」）の利用に関する条件を定めるものです。本アプリをインストール・利用することにより、本規約に同意したものとみなされます。
 
-These Terms govern your use of dailio (the "App"). By installing or using the App, you agree to these Terms.
+These Terms govern your use of Kibun Log (the "App"). By installing or using the App, you agree to these Terms.
 
 ## 2. 利用許諾 / License
 
@@ -74,4 +74,4 @@ These Terms are governed by Japanese law, with exclusive jurisdiction in the Tok
 
 ## お問い合わせ / Contact
 
-GitHub Issues: https://github.com/a-yuto/dailio-jp
+GitHub Issues: https://github.com/a-yuto/kibun-log

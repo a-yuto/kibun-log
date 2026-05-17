@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>きぶんログ（Kibun Log）— 気分と睡眠だけ記録する超シンプルなメンタルトラッカー</title>
+<meta name="description" content="きぶんログは、気分（0〜10）と睡眠だけを記録する超シンプルな iOS メンタルトラッカー。HealthKit で前夜の睡眠を自動取込、一日一言の日記も残せる。Daylio Pro の半額（月額 ¥200）。メンタルデータの第三者送信は一切なし。">
+<link rel="canonical" href="https://a-yuto.github.io/kibun-log/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="きぶんログ（Kibun Log）— 気分と睡眠だけ記録する超シンプルなメンタルトラッカー">
+<meta property="og:description" content="気分（0〜10）と睡眠だけを記録する超シンプルな iOS メンタルトラッカー。HealthKit で睡眠を自動取込、一日一言の日記も。Daylio Pro の半額（月額 ¥200）。">
+<meta property="og:url" content="https://a-yuto.github.io/kibun-log/">
+<meta property="og:locale" content="ja_JP">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+         line-height: 1.75; margin: 0; color: #1c1c1e; background: #fff; }
+  @media (prefers-color-scheme: dark) { body { color: #e5e5e7; background: #000; } a { color: #6db3ff; } }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { text-align: center; padding: 16px 0 8px; }
+  h1 { font-size: 1.9rem; margin: .2em 0; }
+  .tagline { font-size: 1.1rem; opacity: .85; }
+  h2 { font-size: 1.35rem; margin-top: 2.2em; border-bottom: 1px solid rgba(128,128,128,.3); padding-bottom: .2em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+  th, td { border: 1px solid rgba(128,128,128,.35); padding: 8px 10px; text-align: left; }
+  th { background: rgba(128,128,128,.12); }
+  ul { padding-left: 1.3em; }
+  .faq dt { font-weight: 700; margin-top: 1.1em; }
+  .faq dd { margin: .3em 0 0; }
+  a { color: #0a66c2; }
+  footer { margin-top: 3em; font-size: .85rem; opacity: .7; text-align: center; }
+  .badge { display: inline-block; background: rgba(128,128,128,.15); border-radius: 999px;
+           padding: 3px 12px; font-size: .8rem; margin: 2px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "きぶんログ",
+  "alternateName": "Kibun Log",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "iOS 26.4+",
+  "inLanguage": ["ja", "en"],
+  "url": "https://a-yuto.github.io/kibun-log/",
+  "description": "気分（0〜10）と睡眠だけを記録する超シンプルな iOS メンタルトラッカー。HealthKit で前夜の睡眠を自動取込し、一日一言の日記も残せる。Daylio Pro の半額（月額 ¥200）。メンタルデータの第三者送信は一切なし。",
+  "featureList": [
+    "気分スライダー（0〜10）",
+    "HealthKit による前夜の睡眠の自動取込",
+    "一日一言のひとこと日記（任意・最大100文字）",
+    "気分×睡眠のダブル折れ線グラフと7日移動平均",
+    "曜日別の傾向、ストリーク",
+    "毎日のリマインダー",
+    "Face ID / Touch ID / パスコードによるアプリロック",
+    "iCloud 同期"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY",
+    "description": "無料。任意の Pro は月額 ¥200 / 年額 ¥1,980 / 買い切り ¥4,980。"
+  },
+  "privacyPolicy": "https://a-yuto.github.io/kibun-log/PRIVACY.html"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "きぶんログとは何ですか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "気分（0〜10）と睡眠だけを記録する iOS 向けの超シンプルなメンタルトラッカーです。一日一言の日記も残せます。" } },
+    { "@type": "Question", "name": "Daylio との違いは？",
+      "acceptedAnswer": { "@type": "Answer", "text": "記録を2項目に絞った軽さ、HealthKit による睡眠の自動取込、月額がおよそ半額（¥200）、メンタルデータを第三者に一切送信しないプライバシー設計が特徴です。" } },
+    { "@type": "Question", "name": "無料で使えますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "はい。記録・グラフ・リマインダー・iCloud 同期などコア機能は無料です。広告除去やカスタム移動平均などは任意の Pro プランです。" } },
+    { "@type": "Question", "name": "睡眠は自動で記録されますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "HealthKit に睡眠データがあれば前夜分を自動で取り込みます。なければ手動で入力できます。" } },
+    { "@type": "Question", "name": "データは外部に送信されますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "いいえ。メンタルヘルスに関わるデータの第三者送信は一切ありません。記録は本人専用の iCloud Container 内に閉じます。" } },
+    { "@type": "Question", "name": "iPhone と iPad の両方で使えますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "はい。iPhone・iPad の両対応です。" } },
+    { "@type": "Question", "name": "解約はできますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "サブスクリプションは iOS 設定 > Apple ID > サブスクリプションからいつでも解約できます。" } }
+  ]
+}
+</script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>きぶんログ <span style="font-weight:400;opacity:.7">/ Kibun Log</span></h1>
+    <p class="tagline">気分と睡眠だけ記録する、超シンプルなメンタルトラッカー</p>
+    <p>
+      <span class="badge">iPhone / iPad</span>
+      <span class="badge">無料（Pro は任意）</span>
+      <span class="badge">第三者送信なし</span>
+      <span class="badge">日本語 / English</span>
+    </p>
+  </header>
+
+  <p><strong>きぶんログは、気分（0〜10）と睡眠だけを記録する超シンプルな iOS メンタルトラッカーです。</strong>
+  HealthKit で前夜の睡眠を自動取込し、一日一言の日記も残せます。Daylio Pro の半額（月額 ¥200）。</p>
+
+  <h2>なぜ「2 項目だけ」なのか</h2>
+  <p>毎日たくさん書く日記アプリは続かない——でも記録は欲しい。きぶんログは入力を
+  <strong>気分スライダーと睡眠の 2 つ</strong>に絞り、1 日 30 秒で続く設計にしています。
+  物足りない日のために「一日一言」だけ書ける軽い日記欄を用意しました。</p>
+
+  <h2>主な機能</h2>
+  <ul>
+    <li>気分スライダー（0〜10、赤→緑グラデーション）</li>
+    <li>HealthKit 連携で前夜の睡眠を自動取込（手動入力も可）</li>
+    <li>一日一言の「ひとこと日記」（任意・最大 100 文字）</li>
+    <li>気分 × 睡眠のダブル折れ線グラフ、7 日移動平均</li>
+    <li>期間切替（1 週 / 1 ヶ月 / 3 ヶ月 / 1 年）、曜日別の傾向</li>
+    <li>ストリーク（連続記録日数）、毎日のリマインダー</li>
+    <li>Face ID / Touch ID / パスコードによるアプリロック</li>
+    <li>iCloud 同期で機種変更も安心</li>
+  </ul>
+
+  <h2>Daylio との違い（ポジショニング）</h2>
+  <table>
+    <thead><tr><th></th><th>きぶんログ</th><th>一般的な高機能トラッカー</th></tr></thead>
+    <tbody>
+      <tr><td>記録項目</td><td>気分 + 睡眠の 2 つに特化</td><td>アクティビティ・写真など多数</td></tr>
+      <tr><td>睡眠</td><td>HealthKit から自動取込</td><td>手動中心</td></tr>
+      <tr><td>日記</td><td>一日一言（軽量・任意）</td><td>自由記述（多機能）</td></tr>
+      <tr><td>月額</td><td><strong>¥200</strong></td><td>¥400 前後</td></tr>
+      <tr><td>メンタルデータの第三者送信</td><td><strong>一切なし</strong></td><td>サービス依存</td></tr>
+      <tr><td>同期</td><td>iCloud（本人専用 Container）</td><td>独自基盤</td></tr>
+    </tbody>
+  </table>
+  <p>「多機能より、続く軽さ」と「半額」「プライバシー第一」を選ぶ人向けです。</p>
+
+  <h2>料金</h2>
+  <ul>
+    <li>ダウンロード・コア機能: <strong>無料</strong></li>
+    <li>Pro 月額: ¥200 ／ 年額: ¥1,980（月換算 ¥165）／ 買い切り: ¥4,980</li>
+  </ul>
+
+  <h2>よくある質問</h2>
+  <dl class="faq">
+    <dt>きぶんログとは何ですか？</dt>
+    <dd>気分（0〜10）と睡眠だけを記録する iOS 向けの超シンプルなメンタルトラッカーです。一日一言の日記も残せます。</dd>
+    <dt>Daylio との違いは？</dt>
+    <dd>記録を 2 項目に絞った軽さ、HealthKit による睡眠の自動取込、月額がおよそ半額（¥200）、メンタルデータを第三者に一切送信しないプライバシー設計が特徴です。</dd>
+    <dt>無料で使えますか？</dt>
+    <dd>はい。記録・グラフ・リマインダー・iCloud 同期などコア機能は無料です。広告除去やカスタム移動平均などは任意の Pro プランです。</dd>
+    <dt>睡眠は自動で記録されますか？</dt>
+    <dd>HealthKit に睡眠データがあれば前夜分を自動で取り込みます。なければ手動で入力できます。</dd>
+    <dt>データは外部に送信されますか？</dt>
+    <dd>いいえ。メンタルヘルスに関わるデータの第三者送信は一切ありません。記録は本人専用の iCloud Container 内に閉じます。詳しくは<a href="PRIVACY.html">プライバシーポリシー</a>。</dd>
+    <dt>iPhone と iPad の両方で使えますか？</dt>
+    <dd>はい。iPhone・iPad の両対応です。</dd>
+    <dt>解約はできますか？</dt>
+    <dd>サブスクリプションは iOS 設定 &gt; Apple ID &gt; サブスクリプションからいつでも解約できます。</dd>
+  </dl>
+
+  <h2>リンク</h2>
+  <ul>
+    <li>App Store: 準備中</li>
+    <li><a href="PRIVACY.html">プライバシーポリシー</a></li>
+    <li><a href="TERMS.html">利用規約</a></li>
+    <li>お問い合わせ: <a href="https://github.com/a-yuto/kibun-log/issues">GitHub Issues</a></li>
+  </ul>
+
+  <footer>© きぶんログ / Kibun Log</footer>
+</main>
+</body>
+</html>

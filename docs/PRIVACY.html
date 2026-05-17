@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プライバシーポリシー / Privacy Policy — きぶんログ（Kibun Log）</title>
+<meta name="description" content="きぶんログ（Kibun Log）のプライバシーポリシー。メンタルヘルスに関わるデータの第三者送信は一切なし。記録は本人専用の iCloud Container 内に閉じます。">
+<link rel="canonical" href="https://a-yuto.github.io/kibun-log/PRIVACY.html">
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+         line-height: 1.75; margin: 0; color: #1c1c1e; background: #fff; }
+  @media (prefers-color-scheme: dark) { body { color: #e5e5e7; background: #000; } a { color: #6db3ff; } }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.7rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-bottom: 1px solid rgba(128,128,128,.3); padding-bottom: .2em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: .95rem; }
+  th, td { border: 1px solid rgba(128,128,128,.35); padding: 7px 9px; text-align: left; }
+  th { background: rgba(128,128,128,.12); }
+  a { color: #0a66c2; word-break: break-all; }
+  .meta { opacity: .7; font-size: .9rem; }
+  nav { font-size: .9rem; margin-bottom: 1.5em; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="index.html">← きぶんログ トップ</a></nav>
+<h1>プライバシーポリシー / Privacy Policy</h1>
+<p class="meta">最終更新日 / Last Updated: 2026-05-16</p>
+
+<h2>概要 / Summary</h2>
+<p>きぶんログ（以下「本アプリ」）は、ユーザーの気分と睡眠データを記録するためのツールです。本アプリは<strong>メンタルヘルスに関わるデータの取り扱いに最大限の配慮</strong>を行い、第三者へのデータ送信を一切行いません。</p>
+<p>Kibun Log (the "App") is a tool for recording mood and sleep data. Because this is mental health data, we treat it with extra care and <strong>never transmit your records to any third party</strong>.</p>
+
+<h2>収集するデータ / Data We Collect</h2>
+<table>
+<thead><tr><th>項目</th><th>用途</th><th>保管場所</th><th>第三者送信</th></tr></thead>
+<tbody>
+<tr><td>気分スコア（0〜10）</td><td>グラフ表示・統計</td><td>端末内 + ユーザーの iCloud</td><td>しない</td></tr>
+<tr><td>睡眠時間</td><td>グラフ表示・相関分析</td><td>端末内 + ユーザーの iCloud</td><td>しない</td></tr>
+<tr><td>HealthKit 睡眠データ</td><td>睡眠時間の自動取込</td><td>端末内処理のみ</td><td>しない</td></tr>
+<tr><td>通知設定</td><td>リマインダー時刻</td><td>端末内 + ユーザーの iCloud</td><td>しない</td></tr>
+<tr><td>課金状態</td><td>機能解放判定</td><td>Apple StoreKit</td><td>StoreKit 経由のみ</td></tr>
+<tr><td>広告識別子（無料版のみ）</td><td>AdMob バナー表示</td><td>AdMob</td><td>Google AdMob のみ</td></tr>
+</tbody>
+</table>
+<table>
+<thead><tr><th>Item</th><th>Purpose</th><th>Storage</th><th>Sent to third party</th></tr></thead>
+<tbody>
+<tr><td>Mood (0–10)</td><td>Charts and stats</td><td>On-device + your iCloud</td><td>Never</td></tr>
+<tr><td>Sleep hours</td><td>Charts and correlation</td><td>On-device + your iCloud</td><td>Never</td></tr>
+<tr><td>HealthKit sleep</td><td>Auto-import sleep</td><td>Local processing only</td><td>Never</td></tr>
+<tr><td>Reminder settings</td><td>Notification time</td><td>On-device + your iCloud</td><td>Never</td></tr>
+<tr><td>Purchase state</td><td>Pro feature unlock</td><td>Apple StoreKit</td><td>StoreKit only</td></tr>
+<tr><td>Ad ID (free tier)</td><td>AdMob banner</td><td>AdMob</td><td>Google AdMob only</td></tr>
+</tbody>
+</table>
+
+<h2>クラウド同期 / Cloud Sync</h2>
+<p>記録は Apple の iCloud（あなた専用の Container <code>iCloud.niki.kibun-log</code>）に同期されます。Apple のプライバシーポリシーに従い、Apple や本アプリ開発者を含む第三者は内容を閲覧できません。同期を停止するには iOS 設定 &gt; Apple ID &gt; iCloud から きぶんログ をオフにしてください。</p>
+<p>Records sync to your private iCloud container (<code>iCloud.niki.kibun-log</code>). Per Apple's privacy policy, no one—including Apple or the developer—can read the contents. To stop syncing, disable Kibun Log in iOS Settings &gt; Apple ID &gt; iCloud.</p>
+
+<h2>HealthKit</h2>
+<p>本アプリは HealthKit から「睡眠分析（Sleep Analysis）」のみを<strong>読み取り</strong>ます。HealthKit データはサーバ送信されず、デバッグログにも一切残しません。</p>
+<p>The app <strong>reads only Sleep Analysis</strong> from HealthKit. HealthKit data is never sent to any server and never written to logs.</p>
+
+<h2>広告 / Advertising</h2>
+<p>無料版には Google AdMob のバナー広告（記録画面下部のみ）を表示します。AdMob はパーソナライズドまたは非パーソナライズド広告のために、IDFA（広告 ID）と一般的な利用情報を収集することがあります。Pro プランでは広告を完全に非表示にし、AdMob SDK 自体も呼び出されません。</p>
+<p>The free tier shows a Google AdMob banner at the bottom of the entry screen. AdMob may collect IDFA and basic usage data for personalized or non-personalized ads. The Pro plan hides ads entirely and does not load the AdMob SDK.</p>
+<p>AdMob のデータ取り扱いについては Google のプライバシーポリシーをご参照ください: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></p>
+<p>For AdMob's data practices, see Google's privacy policy: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></p>
+
+<h2>データのセキュリティ / Security</h2>
+<ul>
+<li>端末内データは iOS の Data Protection（<code>NSFileProtectionComplete</code> 相当）で暗号化されます</li>
+<li>任意で Face ID / Touch ID / パスコードによるアプリロックを有効化できます</li>
+<li>iCloud 同期は Apple の暗号化通信を使います</li>
+</ul>
+<ul>
+<li>Local data is encrypted with iOS Data Protection</li>
+<li>Optional Face ID / Touch ID / passcode lock is available</li>
+<li>iCloud sync uses Apple's encrypted transport</li>
+</ul>
+
+<h2>ユーザーの権利 / Your Rights</h2>
+<ul>
+<li>全データの削除: iOS 設定 &gt; 一般 &gt; iPhone ストレージ &gt; きぶんログ &gt; App を削除</li>
+<li>iCloud 上のデータ削除: iOS 設定 &gt; Apple ID &gt; iCloud &gt; データの管理 &gt; きぶんログ</li>
+<li>課金の取消: iOS 設定 &gt; Apple ID &gt; サブスクリプション</li>
+</ul>
+<ul>
+<li>Delete all data: iOS Settings &gt; General &gt; iPhone Storage &gt; Kibun Log &gt; Delete App</li>
+<li>Delete iCloud data: iOS Settings &gt; Apple ID &gt; iCloud &gt; Manage Account Storage &gt; Kibun Log</li>
+<li>Cancel subscription: iOS Settings &gt; Apple ID &gt; Subscriptions</li>
+</ul>
+
+<h2>お問い合わせ / Contact</h2>
+<p>本ポリシーに関するお問い合わせは GitHub Issues までお願いします: <a href="https://github.com/a-yuto/kibun-log">https://github.com/a-yuto/kibun-log</a></p>
+<p>For questions about this policy, please file an issue at <a href="https://github.com/a-yuto/kibun-log">https://github.com/a-yuto/kibun-log</a>.</p>
+
+<nav style="margin-top:2em"><a href="index.html">← きぶんログ トップ</a> ・ <a href="TERMS.html">利用規約 / Terms</a></nav>
+</main>
+</body>
+</html>

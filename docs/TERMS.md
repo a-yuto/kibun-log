@@ -1,6 +1,6 @@
 # 利用規約 / Terms of Service
 
-最終更新日 / Last Updated: 2026-05-15
+最終更新日 / Last Updated: 2026-05-16
 
 ## 1. 適用 / Acceptance
 

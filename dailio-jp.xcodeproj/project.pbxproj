@@ -402,6 +402,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "きぶんログ";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "睡眠データから前夜の睡眠時間を自動取得するために使用します。";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "本アプリは健康データを書き込みません。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -438,6 +439,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "きぶんログ";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "睡眠データから前夜の睡眠時間を自動取得するために使用します。";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "本アプリは健康データを書き込みません。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
